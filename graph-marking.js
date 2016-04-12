@@ -35,11 +35,11 @@ Shuttler.GraphMarking = function(graph, name, options) {
 	this._options = options;
 	
 	graph.after.link(function(userId, unlinked, linked, fieldNames, modifier, options) {
-		marking._options.afterLink(userId, unlinked, linked, fieldNames, modifier, options, marking);
+		marking._options.afterLink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
 	});
 	
 	graph.after.unlink(function(userId, unlinked, linked, fieldNames, modifier, options) {
-		marking._options.afterUnlink(userId, unlinked, linked, fieldNames, modifier, options, marking);
+		marking._options.afterUnlink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
 	});
 	
 	if (!graph._marking)
