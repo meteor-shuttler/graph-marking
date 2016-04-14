@@ -34,7 +34,9 @@ documents.insert({ _id: '2' });
 
 // Initialize marking targets.
 var options = Shuttler.GraphMarking.byTarget;
-marking = Shuttler.GraphMarking(graph, 'children', options).in(documents, '__graph');
+marking = Shuttler.GraphMarking(graph, 'children', options)
+    .in(documents, '__graph')
+    .watch()
 
 // Create one link.
 var linkId = graph.link.insert(documents.findOne('1'), documents.findOne('2'));
@@ -87,7 +89,7 @@ In the package there are two sets of prepared options for marking.
 ###### afterUnlink
 > (handler: (userId, unlinked?, linked, fieldNames, modifier, options, marking) => void)
 
-### Watchers
+### Settings
 
 #### .in
 > (collection: Mongo.Collection, field: String) => Shuttler.GraphMarking
@@ -100,3 +102,15 @@ To the collection will be added `_markedByGraphs` field with object:
 
 ##### ._in
 > { (collection: String): (field: String) }
+
+### Watchers
+
+#### .watch
+> () => Shuttler.GraphMarking
+
+Run wather by `graph` links sended in `Shuttler.GraphMarking` constructor.
+
+## Versions
+
+### 0.0.2
+* Added `.watch` method.

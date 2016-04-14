@@ -34,14 +34,6 @@ Shuttler.GraphMarking = function(graph, name, options) {
 	
 	this._options = options;
 	
-	graph.after.link(function(userId, unlinked, linked, fieldNames, modifier, options) {
-		marking._options.afterLink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
-	});
-	
-	graph.after.unlink(function(userId, unlinked, linked, fieldNames, modifier, options) {
-		marking._options.afterUnlink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
-	});
-	
 	if (!graph._marking)
 		graph._marking = {};
 	graph._marking[this._name] = marking;
@@ -59,6 +51,19 @@ Shuttler.GraphMarking.prototype.in = function(collection, field) {
 	this._in[collection._ref] = field;
 	
 	return this;
+};
+
+// () => Shuttler.GraphMarking
+Shuttler.GraphMarking.prototype.watch = function() {
+	var marking = this;
+	
+	this._graph.after.link(function(userId, unlinked, linked, fieldNames, modifier, options) {
+		marking._options.afterLink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
+	});
+	
+	this._graph.after.unlink(function(userId, unlinked, linked, fieldNames, modifier, options) {
+		marking._options.afterUnlink.call(this, userId, unlinked, linked, fieldNames, modifier, options, marking);
+	});
 };
 
 Shuttler.GraphMarking.byTarget = {

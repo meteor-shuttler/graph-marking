@@ -1,6 +1,6 @@
 Package.describe({
   name: 'shuttler:graph-marking',
-  version: '0.0.1',
+  version: '0.0.2',
   summary: 'Marking documents if has link in the graph.',
   git: 'https://github.com/meteor-shuttler/graph-marking.git',
   documentation: 'README.md'
